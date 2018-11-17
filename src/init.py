@@ -27,9 +27,10 @@ class Init(object):
         Dump .text, .rodata, .data, .eh_frame, .got to file
         """
         print colored('1: DISASSEMBLE', 'green')
-        ret = os.system(config.objdump + ' -Dr -j .text ' + self.file + ' > ' + self.file + '.temp')
-        self.checkret(ret, self.file + '.temp')
-
+        #ret = os.system(config.objdump + ' -Dr -j .text ' + self.file + ' > ' + self.file + '.temp')
+        #self.checkret(ret, self.file + '.temp')
+        ret = os.system(config.objdump + ' -Dr -j .text ' + self.file + ' > text.info')
+        self.checkret(ret, 'text.info')
         if not ELF_utils.elf_arm():
             if ELF_utils.elf_32():
                 pic_process.picprocess32(self.file)
@@ -119,6 +120,7 @@ class Init(object):
         processor.sections()
         processor.userfuncs()
         processor.global_bss()
+        #ajax: instrprocess is more complex
         processor.instrProcess(instrument)
 
     def checkret(self, ret, path):
@@ -141,6 +143,8 @@ def main(filepath, instrument=False):
         init = Init(filepath)
         init.disassemble()
         init.process()
+
+        #ajax: main AIL function
         init.ailProcess(instrument)
     else:
         sys.stderr.write('Error: binary is not stripped or is a shared library\n')

@@ -487,9 +487,12 @@ class parse(parseARM if (config.arch == config.ARCH_ARMT) else parseX86):
         :param pre: True if instruction has prefix operator
         """
         sl = len(stack)
+        #ajax:debug
+        
         stack = stack[:1] + \
                 (stack[::-1][1:-1] if isinstance(self, parseX86) else stack[1:-1]) + \
                 stack[-1:] + [pre]
+        #print sl, stack
         if sl == 2: return Types.SingleInstr(stack)
         elif sl == 3: return Types.DoubleInstr(stack)
         elif sl == 4: return Types.TripleInstr(stack)
@@ -510,5 +513,9 @@ class parse(parseARM if (config.arch == config.ARCH_ARMT) else parseX86):
         has_pre = self.prefix_identify(instr)
         if has_pre: instr = prefix_sub(instr)
         lexem_list = lexer(instr, loc)
+        
+        #print lexem_list
         s = map(self.push_stack, lexem_list)
+        #ajax:debug
+        #print s
         return self.reduce_stack(s, has_pre)

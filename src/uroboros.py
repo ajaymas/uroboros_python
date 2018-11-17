@@ -32,9 +32,12 @@ def process(filepath, instrument=False, fexclude=''):
         os.system(config.strip + ' ' + filepath)
         main_discover.main_discover(filepath)
 
+        #ajax: main process function
         init.main(filepath, instrument)
+        #ajax:-----
         if not os.path.isfile("final.s"): return False
-
+        
+        #ajax: fill the data
         with open('final_data.s', 'a') as f:
             f.write('\n.section .eh_frame\n')
             with open('eh_frame_split.info') as eh: f.write(eh.read())
@@ -44,6 +47,8 @@ def process(filepath, instrument=False, fexclude=''):
             with open('final_data.s', 'r') as fd: f.write(fd.read())
             if instrument: f.write('\n\n'.join(map(lambda e: e['plain'].instrdata, config.instrumentors)))
 
+
+        #ajax: post_process
         compile_process.main(filepath)
         if instrument:
             for worker in config.instrumentors:

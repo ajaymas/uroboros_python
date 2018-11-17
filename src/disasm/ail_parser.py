@@ -99,6 +99,8 @@ class AilParser(object):
         p.set_seclist(self.secs)
         for i in ilist:
             items = filter(len, i.split(':'))
+            #ajax:debug
+            #print items
             if len(items) > 1:
                 loc = items[0]
                 instr = ':'.join(items[1:])

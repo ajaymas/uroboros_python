@@ -13,7 +13,7 @@ def func_addr(filename, count, fexclude=''):
     """
 
     os.system(config.objdump + ' -Dr -j .text ' + filename + ' > dump.s')
-    os.system('grep ">:" dump.s > fl')
+    os.system('grep ">:" dump.s > fl') #ajax: search section name as "<.text>:" "<_main>:"
 
     if len(fexclude) > 0 and os.path.isfile(fexclude):
         os.system('grep -v -f ' + fexclude + ' fl > fl.filtered')
@@ -58,8 +58,8 @@ def func_addr(filename, count, fexclude=''):
                         addrs_2.append(fn)
             else:
                 addr = fn.split('<')[0].strip()
-                addrs.append("0x" + addr + '\n')
-                addrs_2.append(fn)
+                addrs.append("0x" + addr + '\n') #ajax: function addr
+                addrs_2.append(fn) #ajax: complete function addr and name
 
     with open('faddr.txt', 'w') as f:
         f.writelines(addrs)

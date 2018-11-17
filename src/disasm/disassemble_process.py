@@ -53,10 +53,14 @@ class Disam(object):
             ailpar.processInstrs(read_file('instrs.info'))
             fl = ailpar.get_funcs()
 
+            print fl
+            print "------------------------------------------"
+            #ajax: reconstruct symbolic information
             il = re.visit_heuristic_analysis(ailpar.get_instrs())
             il = re.lib32_processing(il, fl)
             il = re.add_func_label(Disam.get_userfuncs(fl), il)
-
+            print il
+            
             print colored('2: DISASSEMBLY VALIDATION', 'green')
             dis_valid.visit(il)
             adjust_list = dis_valid.trim_results()
@@ -67,5 +71,5 @@ class Disam(object):
                 total += TR.elapsed(once)
             else:
                 cond = True
-
+        #ajax: instruction list, function list, reassemble
         return (il, fl, re)

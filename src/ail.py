@@ -105,6 +105,7 @@ class Ail(object):
         il, fl, re = Disam.disassemble(self.file, self.funcs, self.secs)
 
         print colored('3: ANALYSIS', 'green')
+        #ajax: analysis 
         fbl, bbl, cfg_t, cg, il, re = Analysis.analyze(il, fl, re, docfg)  # @UnusedVariable
 
         if instrument:

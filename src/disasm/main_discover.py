@@ -29,6 +29,11 @@ def main_discover(filename):
                 # when not using O2 to compile the original binary, we will remove all the _start code,
                 # including the routine attached on the original program. In that case, we can not discover the
                 # main function
+
+                #ajax:
+                # the .start section will call __libc_start_main in libc libary
+                # two arguments are addr of __libc_csu_init and addr of main
+                #                  
                 if "<__libc_start_main@plt>" in l:
                     main_symbol = lines[i-1].split()[-1] if ELF_utils.elf_32() \
                         else lines[i-1].split()[-1].split(',')[0]

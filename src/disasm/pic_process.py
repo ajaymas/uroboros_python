@@ -15,7 +15,7 @@ def info_collect(f):
     with open('gotplt.info', 'w') as f: f.write(info)
     def mapper(l):
         items = l.split()
-        # name ;  begin addr; ... ; size
+        # name ;  begin addr; off ; size
         return (items[0], (int(items[1], 16), int(items[3], 16)))
     return dict(map(mapper, info.split('\n')))
 
