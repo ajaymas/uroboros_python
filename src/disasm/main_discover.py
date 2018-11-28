@@ -16,7 +16,7 @@ def main_discover(filename):
     if ELF_utils.elf_exe():
 
         os.system(config.objdump + ' -Dr -j .text '+ filename + ' > ' + filename + '.temp')
-
+        
         with open(filename + '.temp') as f:
             lines = f.readlines()
 

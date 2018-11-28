@@ -40,10 +40,17 @@ class AilParser(object):
         Get function list
         """
         fl = unify_funclist_by_name(self.func_slicing())
-        fl.sort(cmp=lambda f1, f2: f1.func_begin_addr - f2.func_begin_addr)
+        #print "ajax1",len(fl),fl
         fl = self.filter_func_by_name(fl)
+        #print "ajax2",len(fl),fl
+        fl.sort(cmp=lambda f1, f2: f1.func_begin_addr - f2.func_begin_addr)
+        #print "ajax3",len(fl),fl
+        fl = self.filter_func_by_name(fl)
+        #print "ajax4",len(fl),fl
         fl = self.update_func_info(fl)
+        #print "ajax5",len(fl),fl
         fl = self.filter_func_by_secs(fl)
+        
         return unify_funclist_by_addr(fl)
 
     def filter_func_by_name(self, funcs):
@@ -77,6 +84,7 @@ class AilParser(object):
         fs = func_slicer(self.instrs, self.funcs)
         fs.update_text_info()
         fs.update_func()
+        #print "ajax", len(fs.func_set)
         return fs.get_funcs()
 
     def set_secs(self, secs):
@@ -104,7 +112,8 @@ class AilParser(object):
             if len(items) > 1:
                 loc = items[0]
                 instr = ':'.join(items[1:])
-                try: self.instrs.insert(0, p.parse_instr(instr, loc))
+                try: 
+                    self.instrs.insert(0, p.parse_instr(instr, loc))
                 except InvalidOpException as e: invalid.add(e.getop())
         if len(invalid) != 0:
             raise Exception('Some instructions are not known: ' + str(invalid))

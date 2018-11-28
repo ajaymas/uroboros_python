@@ -53,18 +53,22 @@ def text_process_strip(f):
     for i in xrange(1,len(ls)):
         l = ls[i]
         if "call" in l and next((addr for addr in pc_thunk_addr if addr in l), None):
+            
             t = ls[i+1]
             items = t.split('\t')
             addr_s = items[0].strip().rstrip(':')
             items = items[2].split()
+            
             if len(items) != 2 or items[0] != "add": continue
             # typically, it should look like this
             # 804c466: add    $0x2b8e,%ebx
             off_s = items[-1].split(',')[0][1:]
+            
             try: off = int(off_s, 16)
             except: continue
             addr = int(addr_s, 16)
             baddr = addr + off
+            
             for key, value in pic_map.iteritems():
                 if value[0] == baddr:
                     ls[i+1] = t.replace('$'+off_s, sec_symb[key])
@@ -73,7 +77,7 @@ def text_process_strip(f):
 
     with open(f + '.temp', 'w') as fd:
         fd.writelines(ls)
-
+  
 
 def picprocess32(filepath):
     """

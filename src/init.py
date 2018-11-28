@@ -64,6 +64,7 @@ class Init(object):
         with open("sections.info") as f:
             bssinfo = next((l for l in f if '.bss' in l), None)
             size = int(bssinfo.split()[3], 16) if bssinfo is not None else 0
+        
         with open("bss.info", 'w') as f:
             f.write(".byte 0x00\n" * size)
         os.system('readelf -sW ' + self.file + ' | grep OBJECT | awk \'/GLOBAL/ {print $2,$8}\' > globalbss.info')
@@ -74,6 +75,7 @@ class Init(object):
         Code disassembly dump
         """
         # useless_func_del.main(self.file)
+        
         if ELF_utils.elf_arm(): arm_process.arm_process(self.file)
         else:
             extern_symbol_process.pltgot(self.file)

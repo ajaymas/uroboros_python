@@ -200,7 +200,8 @@ class parseX86(base_parser):
                        self.jmptable_m_symb, self.jmptable_p_symb, self.segref_symb]
             for m in mappers:
                 res = m(s)
-                if res is not None: return res
+                if res is not None: 
+                    return res
         return None
 
     def jumpdes_symb(self, s):
@@ -283,7 +284,8 @@ class parseX86(base_parser):
         symbf = [self.ptr_symb, self.reg_symb, self.assist_sym, self.const_symb, self.symbol_symb]
         for f in symbf:
             res = f(s)
-            if res is not None: return res
+            if res is not None: 
+                return res
         return Types.Label(s)
 
     def op_symb(self, sym):
@@ -443,7 +445,8 @@ class parseARM(base_parser):
                  self.reg_symb, self.const_symb, self.symbol_symb]
         for f in symbf:
             res = f(s)
-            if res is not None: return res
+            if res is not None: 
+                return res
         return Types.Label(s)
 
     def op_symb(self, sym):
@@ -492,7 +495,7 @@ class parse(parseARM if (config.arch == config.ARCH_ARMT) else parseX86):
         stack = stack[:1] + \
                 (stack[::-1][1:-1] if isinstance(self, parseX86) else stack[1:-1]) + \
                 stack[-1:] + [pre]
-        #print sl, stack
+        #print "ajax", sl, stack
         if sl == 2: return Types.SingleInstr(stack)
         elif sl == 3: return Types.DoubleInstr(stack)
         elif sl == 4: return Types.TripleInstr(stack)
@@ -513,8 +516,7 @@ class parse(parseARM if (config.arch == config.ARCH_ARMT) else parseX86):
         has_pre = self.prefix_identify(instr)
         if has_pre: instr = prefix_sub(instr)
         lexem_list = lexer(instr, loc)
-        
-        #print lexem_list
+        #print "ajax", lexem_list
         s = map(self.push_stack, lexem_list)
         #ajax:debug
         #print s

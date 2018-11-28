@@ -56,6 +56,7 @@ class Ail(object):
         with open('userfuncs.info') as f:
             self.funcs += map(func_mapper,
                 filter(lambda line: not ('-0x' in line or '+0x' in line), f))
+        
 
     def get_userfuncs(self):
         """

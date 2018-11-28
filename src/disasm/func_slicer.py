@@ -87,7 +87,6 @@ class func_slicer(object):
         """
         for e in self.funcs:
             self.func_set[e.func_name] = e
-
     def get_func_list(self):
         """
         Return list of function
@@ -100,7 +99,9 @@ class func_slicer(object):
         """
         self.func_begins = map(lambda a: int(a, 16), read_file('faddr.txt'))
         self.func_begins += [f.func_begin_addr for f in self.funcs if f.func_begin_addr != 0]
+
         self.build_func_info()
+
         fl = self.get_func_list()
-        print '     Sliced', len(self.func_begins), 'functions'
+        print '     Sliced', len(self.func_begins), 'functions' , len(fl)
         return fl

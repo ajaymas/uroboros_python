@@ -50,16 +50,16 @@ class Disam(object):
             once = TR.get_utime()
             ailpar.set_funcs(funcs)
             ailpar.set_secs(secs)
-            ailpar.processInstrs(read_file('instrs.info'))
-            fl = ailpar.get_funcs()
 
-            print fl
-            print "------------------------------------------"
+            ailpar.processInstrs(read_file('instrs.info'))
+           
+            fl = ailpar.get_funcs()
+          
+            total = 600.0
             #ajax: reconstruct symbolic information
             il = re.visit_heuristic_analysis(ailpar.get_instrs())
             il = re.lib32_processing(il, fl)
             il = re.add_func_label(Disam.get_userfuncs(fl), il)
-            print il
             
             print colored('2: DISASSEMBLY VALIDATION', 'green')
             dis_valid.visit(il)

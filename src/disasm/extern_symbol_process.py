@@ -51,6 +51,7 @@ def pltgot(filepath):
     lastplt = (int(lastplt[0],16), re.escape(lastplt[1].rstrip('>:')))
 
     pltgotsym = check_output('readelf -r ' + filepath + ' | awk \'/_GLOB_DAT/ {print $1,$5}\' | grep -v __gmon_start__ | cat', shell=True).strip()
+    
     if len(pltgotsym) == 0: return
     def pltsymmapper(l):
         items = l.strip().split()

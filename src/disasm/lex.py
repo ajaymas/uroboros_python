@@ -132,6 +132,8 @@ def lexer(instr, location):
     location = '0x' + location.strip()
     tokens = instr.split()
     op_str = tokens[0]
+
+   
     if len(tokens) == 1:
         return (Lop(op_str), Lloc(location))
     elif check_assist(tokens[1]):
