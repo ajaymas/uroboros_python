@@ -54,8 +54,7 @@ class Disam(object):
             ailpar.processInstrs(read_file('instrs.info'))
            
             fl = ailpar.get_funcs()
-          
-            total = 600.0
+
             #ajax: reconstruct symbolic information
             il = re.visit_heuristic_analysis(ailpar.get_instrs())
             il = re.lib32_processing(il, fl)

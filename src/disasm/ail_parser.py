@@ -50,7 +50,6 @@ class AilParser(object):
         fl = self.update_func_info(fl)
         #print "ajax5",len(fl),fl
         fl = self.filter_func_by_secs(fl)
-        
         return unify_funclist_by_addr(fl)
 
     def filter_func_by_name(self, funcs):
@@ -70,6 +69,7 @@ class AilParser(object):
         items = l.split()
         addr = int(items[1], 16)
         end = addr + int(items[3], 16)
+
         def fil(f):
             if f.func_begin_addr == 0: return False
             if len(f.func_name) < 3: return True
