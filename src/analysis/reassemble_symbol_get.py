@@ -208,6 +208,7 @@ class datahandler:
         while holei < len(self.exclude) and startaddr > self.exclude[holei][1]: holei += 1
         while i < len(l) - 3:
             val = int(''.join(map(lambda e: e[1][8:10], reversed(l[i:i+4]))), 16)
+            #print "ajax",i, val
             s = self.check_sec(val)
             if s is not None:
                 if self.assumption_two:
@@ -324,6 +325,8 @@ class datahandler:
         self.got_list = self.collect('got_split.info')
         self.bss_list = self.collect('bss.info')
 
+        #print "ajax",len(self.data_list),len(self.rodata_list),len(self.got_list),len(self.bss_list)
+
     def collect(self, name):
         """
         Load .byte declaration file
@@ -358,6 +361,7 @@ class datahandler:
     def add_data_label(self):
         dataoff = self.section_addr('.data')
         rodataoff = self.section_addr('.rodata')
+ 
         for e in self.locations:
             n, l = e
             if n == '.data':
@@ -373,6 +377,7 @@ class datahandler:
         """
         ds = {'.data': self.data_list, '.rodata': self.rodata_list,
               '.got': self.got_list, '.bss': self.bss_list}
+        
         for i in xrange(len(lbs)):
             n, l = lbs[i]
             if n in ds:
@@ -408,6 +413,7 @@ class datahandler:
         self.process(self.locations)
         self.process(self.data_labels, True)
         self.gotexternals()
+        
         if len(self.rodata_list) != 0:
             l, s = self.rodata_list[0]
             self.rodata_list[0] = ('s_dummy:\n' + l, s)
@@ -868,11 +874,13 @@ class reassemble(ailVisitor):
         """
         func = lambda i: self.check_text(get_loc(i).loc_addr)
         self.instr_list = instrs
+
         if ELF_utils.elf_arm():
             self.pcreloffARM(instrs)
             instrs = map(self.vinst2ARM, enumerate(instrs))
             self.doublemovARM(instrs)
         else: instrs = map(lambda i: self.vinst2(func, i), instrs)
+
         self.symbol_list = map(lambda l: int(l.split('x')[1], 16), self.deslist) + self.symbol_list
         return instrs
 
@@ -907,10 +915,13 @@ class reassemble(ailVisitor):
         :param instr_list: instruction list
         :return: instruction list withh location labels
         """
+
         self.update_deslist_with_initarray()
         p = instrhandler(instr_list, self.init_array_list + self.deslist)
+        
         p.set_loc_list()
         p.process()
+
         return p.get_instr_list()
 
     def adjust_jmpref(self, instr_list):

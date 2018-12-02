@@ -37,9 +37,11 @@ class Analysis(object):
             il = _cg.visit(il)
 
         il = re.adjust_loclabel(il)
-        re.reassemble_dump(u_fl)
-        il = re.adjust_jmpref(il)
 
+        re.reassemble_dump(u_fl)
+
+        il = re.adjust_jmpref(il)
+        #print "ajax",il
         if docfg:
             _cfg = cfg()
             _cfg.set_funcs(fl)
