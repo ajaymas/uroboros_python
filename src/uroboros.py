@@ -157,6 +157,7 @@ a label or an address range of data section to exclude from symbol search""")
     if check(filepath, args.assumption, args.gccopt, exclude, args.instrument) and set_assumption(args.assumption):
         if process(os.path.basename(filepath), args.instrument, fexclude):
             print colored("Processing succeeded", "blue")
+            a = 3/0
             if outpath is not None: shutil.copy('a.out', outpath)
         else: print colored("Processing failed", "red")
 

@@ -182,6 +182,7 @@ def main(filepath='', libs=[], debug=False):
     if filepath:
         # Dump linked shared libraries
         os.system('readelf -d ' + filepath + ' | awk \'/Shared/{match($0, /\[([^\]]*)\]/, arr); print arr[1]}\' | grep -i -v "libc\\." > linkedlibs.info')
+        #os.system('readelf -d ' + filepath + ' | awk \'/Shared/{match($0, /\[([^\]]*)\]/, arr); print arr[1]}\' ')
         print "     Applying adjustments for compilation"
     if ELF_utils.elf_arm():
         i = 0
