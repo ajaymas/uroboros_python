@@ -104,7 +104,7 @@ class Ail(object):
         """
         self.pre_process()
         il, fl, re = Disam.disassemble(self.file, self.funcs, self.secs)
-
+        #print "ajax",il
         print colored('3: ANALYSIS', 'green')
         #ajax: analysis 
         fbl, bbl, cfg_t, cg, il, re = Analysis.analyze(il, fl, re, docfg)  # @UnusedVariable

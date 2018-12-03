@@ -19,7 +19,7 @@ def main(instrument=False):
 
     if ELF_utils.elf_exe():
         main_symbol1 = ''
-
+        
         with open('main.info') as f:
             main_symbol1 = f.readline().strip()
 

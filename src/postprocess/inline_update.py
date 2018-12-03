@@ -16,7 +16,7 @@ def main():
     symbols = map(lambda s : s.replace(":",""), symbols)
     symbols = map(lambda s : s.strip(), symbols)
     symbols = filter(lambda s : s.strip(), symbols)
-
+    
     symbols = set(symbols)
 
     #print symbols
