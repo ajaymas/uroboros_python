@@ -73,6 +73,7 @@ class AilParser(object):
         def fil(f):
             if f.func_begin_addr == 0: return False
             if len(f.func_name) < 3: return True
+            #print "ajax",f.func_name  
             opt = int_of_string_opt(f.func_name[2:], 16)
             return True if opt is None else (addr <= opt < end)
         return filter(fil, funcs)

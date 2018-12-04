@@ -26,6 +26,13 @@ def reassemble(saveerr=False, libs=[], debug=False):
     :param debug: True to compile with debug symbols
     """
     if len(libs) == 0: libs = inferlibflags()
+    '''
+    print "ajax",(config.compiler + ' final.s '
+              + ('-g ' if debug else '')
+              + ('-mthumb' if ELF_utils.elf_arm() else (' -Wa,-mindex-reg' + (' -m32' if ELF_utils.elf_32() else '')))
+              + ' ' + config.gccoptions + ' ' + ' '.join(libs)
+              + (' 2> final.error' if saveerr else ''))
+    '''
     return os.system(config.compiler + ' final.s '
               + ('-g ' if debug else '')
               + ('-mthumb' if ELF_utils.elf_arm() else (' -Wa,-mindex-reg' + (' -m32' if ELF_utils.elf_32() else '')))
