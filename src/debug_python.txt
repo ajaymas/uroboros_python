@@ -1,11 +1,13 @@
 32 bit x86 binary detected
-Starting to process binary '37.out'
+Starting to process binary '36.out'
 [32m1: DISASSEMBLE[0m
-     Sliced 243 functions 514
+ajax stos stos
+ajax stos stos
+ajax stos stos
+ajax movsl movsl
+     Sliced 11 functions 28
 [32m2: DISASSEMBLY VALIDATION[0m
 [32m3: ANALYSIS[0m
 [32m4: POST-PROCESSING[0m
      Applying adjustments for compilation
-ajax gcc final.s  -Wa,-mindex-reg -m32  -lstdc++ -lgcc_s 2> final.error
-ajax gcc final.s  -Wa,-mindex-reg -m32  -lstdc++ -lgcc_s
 [34mProcessing succeeded[0m
